@@ -1,10 +1,6 @@
 # SS-BiGAN: Spatial-Spectral Bi-directional GAN for Hyperspectral Nonlinear Unmixing
 
-本项目基于论文《Looking into a Pixel by Nonlinear Unmixing -- A Generative
-Approach》（Tang & Qi, 2026）中提出的“双向 GAN 非线性解混合”框架，进行的一项
-方法学改进实现：**空间-光谱联合双向 GAN（SS-BiGAN）**。
-
-与原文的逐像素处理不同，SS-BiGAN 通过 3D 卷积同时在空间和光谱两个维度上建模
+SS-BiGAN 通过 3D 卷积同时在空间和光谱两个维度上建模
 邻域上下文，并保留了原始的“解混合 ↔ 混合”双向循环一致性约束，以数据驱动、无
 模型的方式建模非线性光谱混合过程。
 
