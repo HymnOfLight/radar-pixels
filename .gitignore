@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+
+# Datasets and training artifacts
+datasets/*/
+!datasets/.gitkeep
+checkpoints/
+*.pt
+*.mat
+
+.DS_Store
