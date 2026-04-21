@@ -22,6 +22,9 @@ cd "${TARGET_DIR}"
 fetch_with_mirrors() {
   local out="$1"
   shift
+fetch() {
+  local url="$1"
+  local out="$2"
   if [[ -s "${out}" ]]; then
     echo -e "${YELLOW}[skip]${NC} ${out} already exists."
     return 0
@@ -86,3 +89,47 @@ mkdir -p Urban && (
 echo -e "${GREEN}All datasets downloaded to ${TARGET_DIR}.${NC}"
 echo "Files layout:"
 (cd "${TARGET_DIR}" && find . -maxdepth 3 -type f | sort)
+  if command -v curl >/dev/null 2>&1; then
+    curl -fL --retry 3 --retry-delay 5 -o "${out}" "${url}"
+  elif command -v wget >/dev/null 2>&1; then
+    wget -O "${out}" "${url}"
+  else
+    echo "Neither curl nor wget is installed." >&2
+    exit 1
+  fi
+}
+
+echo -e "${GREEN}[1/3] Downloading Samson dataset...${NC}"
+mkdir -p Samson && (
+  cd Samson
+  fetch \
+    "https://raw.githubusercontent.com/dv-fenix/HyperspecAE/master/data/Samson/Data_Matlab/samson_1.mat" \
+    "samson_1.mat"
+  fetch \
+    "https://raw.githubusercontent.com/dv-fenix/HyperspecAE/master/data/Samson/GroundTruth/end3.mat" \
+    "end3.mat"
+)
+
+echo -e "${GREEN}[2/3] Downloading Jasper Ridge dataset...${NC}"
+mkdir -p JasperRidge && (
+  cd JasperRidge
+  fetch \
+    "https://raw.githubusercontent.com/ricardoborsoi/MultiscaleKernelSURelease/master/DATA/jasperRidge2_R198.mat" \
+    "jasperRidge2_R198.mat"
+  fetch \
+    "https://raw.githubusercontent.com/ricardoborsoi/MultiscaleKernelSURelease/master/DATA/end4.mat" \
+    "end4.mat"
+)
+
+echo -e "${GREEN}[3/3] Downloading Urban dataset...${NC}"
+mkdir -p Urban && (
+  cd Urban
+  fetch \
+    "https://raw.githubusercontent.com/ricardoborsoi/MultiscaleKernelSURelease/master/DATA/Urban_R162.mat" \
+    "Urban_R162.mat"
+  fetch \
+    "https://raw.githubusercontent.com/ricardoborsoi/MultiscaleKernelSURelease/master/DATA/end6_groundTruth.mat" \
+    "end6_groundTruth.mat"
+)
+
+echo -e "${GREEN}All datasets downloaded to ${TARGET_DIR}.${NC}"

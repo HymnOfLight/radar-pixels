@@ -113,6 +113,24 @@ def _load_dataset(args: argparse.Namespace) -> dict:
                 "Run scripts/download_datasets.sh first."
             )
         return load_mat_hsi_dataset(data_path, gt_path, height=307, width=307)
+    if args.dataset == "samson":
+        data_path = os.path.join(args.data_root, "Samson", "samson_1.mat")
+        gt_path = os.path.join(args.data_root, "Samson", "end3.mat")
+        return load_mat_hsi_dataset(data_path, gt_path, height=95, width=95)
+
+    if args.dataset == "jasper":
+        data_path = os.path.join(
+            args.data_root, "JasperRidge", "jasperRidge2_R198.mat"
+        )
+        gt_path = os.path.join(args.data_root, "JasperRidge", "end4.mat")
+        return load_mat_hsi_dataset(data_path, gt_path, height=100, width=100)
+
+    if args.dataset == "urban":
+        data_path = os.path.join(args.data_root, "Urban", "Urban_R162.mat")
+        gt_path = os.path.join(args.data_root, "Urban", "end6_groundTruth.mat")
+        return load_mat_hsi_dataset(
+            data_path, gt_path, height=307, width=307
+        )
 
     raise ValueError(f"Unknown dataset: {args.dataset}")
 
