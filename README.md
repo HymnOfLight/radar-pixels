@@ -62,6 +62,19 @@ bash scripts/download_datasets.sh
 
 脚本会创建 `datasets/Samson`、`datasets/JasperRidge`、`datasets/Urban` 三个子
 目录，并下载对应的 `.mat` 文件（高光谱观测矩阵以及 Ground Truth 端元 / 丰度）。
+下载后的目录结构类似：
+
+```
+datasets/
+├── Samson/         Samson.mat         + Samson_GT.mat
+├── JasperRidge/    jasperRidge2_R198.mat + Jasper_GT.mat
+└── Urban/          Urban.mat          + end{4,5,6}_groundTruth.mat
+```
+
+下载源为 GitHub 上的公开学术镜像
+[gaetanosettembre/data_unmixing](https://github.com/gaetanosettembre/data_unmixing)；
+若未来某条 URL 失效，也可在同名 `scripts/download_datasets.sh` 里通过
+`fetch_with_mirrors` 追加任意数量的镜像 URL。
 
 ### 4. 在真实数据上训练
 
